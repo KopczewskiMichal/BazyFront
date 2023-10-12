@@ -1,0 +1,19 @@
+span {
+  color: red;
+}
+
+ul li {
+  background-color: lightblue;
+}
+
+a {
+  color: green;
+}
+
+div img {
+  border: 1px solid black;
+}
+
+div ul {
+  display: none;
+}/*# sourceMappingURL=style.css.map */
