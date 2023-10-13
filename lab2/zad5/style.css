@@ -1,0 +1,15 @@
+section {
+  display: block;
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 20px;
+}
+section .left-block, section .right-block {
+  width: calc((100% - x) / 4);
+  margin-right: 20px;
+  background-color: lightgray;
+}
+section .middle-block {
+  background-color: lightgray;
+  width: 100%-x/2;
+}/*# sourceMappingURL=style.css.map */
