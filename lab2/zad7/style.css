@@ -1,0 +1,25 @@
+.wrapper {
+  width: 100%;
+  overflow: hidden;
+}
+.wrapper .left {
+  width: 70%;
+  float: left;
+}
+.wrapper .right {
+  width: 30%;
+  float: left;
+}
+.wrapper .menu a {
+  display: block;
+  padding: 5px;
+}
+.wrapper .menu ul {
+  margin: 0;
+  list-style: none;
+  padding: 0;
+}
+.wrapper .menu ul li {
+  float: left;
+  margin-right: 20px;
+}/*# sourceMappingURL=style.css.map */

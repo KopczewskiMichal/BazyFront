@@ -1,0 +1,25 @@
+body {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+body .background {
+  overflow: scroll;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  left: 0;
+  top: 0;
+  position: absolute;
+  background-position: center;
+  background-size: cover;
+  background-image: url("https://www.tapetus.pl/obrazki/n/200890_rzeka-motlawa-kamienice-gdansk-polska-miasto.jpg");
+  z-index: -1;
+}
+body .title {
+  font-size: large;
+  padding-top: 20px;
+}/*# sourceMappingURL=style.css.map */
