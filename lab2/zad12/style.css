@@ -1,0 +1,3 @@
+.container {
+  grid-template-areas: "header header header" "left content right" "footer footer footer";
+}/*# sourceMappingURL=style.css.map */
