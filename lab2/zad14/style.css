@@ -1,0 +1,94 @@
+body {
+  position: flex;
+  margin: 0;
+  padding: 0;
+  background-color: white;
+}
+body header {
+  width: 100%;
+  margin: 0;
+  padding: 10px;
+  background-color: #343a40;
+}
+body header p {
+  margin-top: 0;
+  font-size: 0.9rem;
+  color: rgb(164, 164, 164);
+}
+body header h3 {
+  color: white;
+  line-height: 0.5rem;
+}
+body nav {
+  width: 100%;
+}
+body nav ul {
+  list-style-type: none;
+  display: flex;
+  width: 30%;
+  justify-content: space-between;
+}
+body nav ul li {
+  display: inline;
+}
+body nav ul li a {
+  color: black;
+  text-decoration: none;
+}
+body nav ul li a:hover {
+  font-size: 1.5rem;
+  color: blue;
+  text-decoration: underline;
+}
+body .columns {
+  width: 100%;
+  height: 100px;
+  margin: 0;
+  background-color: #e9ecef;
+  display: flex;
+  justify-content: space-around;
+  font-size: 0.8rem;
+  line-height: 0.8rem;
+}
+body .columns div {
+  padding: 10px;
+  width: 25%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+body .columns div h4, body .columns div p {
+  margin: 0;
+}
+body .columns .column1 {
+  background-color: #007bff;
+  color: white;
+}
+body .columns .column2 {
+  color: white;
+  background-color: #28a745;
+}
+body .columns .column3 {
+  background-color: #ffc107;
+}
+body footer {
+  margin: 0;
+  height: 100%;
+  color: whitesmoke;
+  background-color: #343a40;
+  line-height: 40px;
+}
+body .znak-wodny {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  font-size: 0.9rem;
+  color: rgb(196, 196, 196);
+}
+body .ikona {
+  position: absolute;
+  left: 0;
+  top: 0;
+}/*# sourceMappingURL=style.css.map */
