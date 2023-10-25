@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>React Samples</title>
+  </head>
+  <body>
+    <!-- Target container -->
+    <div id="root">
+
+      <section id="baked-salmon">
+        <h1>Baked Salmon</h1>
+        <ul class="ingredients">
+            <li>2 lb salmon</li>
+            <li>5 sprigs fresh rosemary</li>
+            <li>2 tablespoons olive oil</li>
+            <li>2 small lemons</li>
+            <li>1 teaspoon kosher salt</li>
+            <li>4 cloves of chopped garlic</li>
+        </ul>
+        <section class="instructions">
+            <h2>Cooking Instructions</h2>
+            <p>Preheat the oven to 375 degrees.</p>
+            <p>Lightly coat aluminum foil with oil.</p>
+            <p>Place salmon on foil</p>
+            <p>Cover with rosemary, sliced lemons, chopped garlic.</p>
+            <p>Bake for 15-20 minutes until cooked through.</p>
+            <p>Remove from oven.</p>
+        </section>
+    </section>
+    </div>
+
+    <!-- React library & ReactDOM (Development Version)-->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <script>
+        
+        const tittle = React.createElement('h1', null, 'Witaj, świecie!');
+        const list_el_1 = React.createElement('li', null, 'Jabłko');
+        const list_el_2 = React.createElement('li', null, 'Banan');
+        const list_el_3 = React.createElement('li', null, 'Pomarańcza');
+        const list = React.createElement(
+            'ul',
+            null,
+            [list_el_1, list_el_2, list_el_3]);
+        const href = React.createElement("a", {href: "https://www.google.com/", target:"_blank"}, "google")
+        const button = React.createElement('button',
+        {
+            onClick: () => {
+                alert("Kliknięto")
+            }
+        },
+        "to jest przycisk"
+        )
+
+        const main = React.createElement("div", null, [tittle, list, href, button])
+        ReactDOM.render(main, document.getElementById('root'));
+    </script>
+  </body>
+</html>
