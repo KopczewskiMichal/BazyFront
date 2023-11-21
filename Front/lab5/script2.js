@@ -1,3 +1,5 @@
+// Plik do zadania 2
+
 function JSXRules(props) {
   return (
     <blockquote>
