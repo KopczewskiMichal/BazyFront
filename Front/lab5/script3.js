@@ -38,23 +38,40 @@ const PhotoGallery = ({URLArray}) => {
   )
 };
 
-// function Root(props) {
-//   return (
-//     <div>
-//       <Menu data={menuData}/>
-//       <PhotoGallery URLArray={URLArray}/>
-//     </div>
-//   );
-// }
+const DataTable = ({headers, data}) => {
+  return (
+    <table>
+      <tr>
+        {headers.map((elem) =>
+        <th>{elem}</th>)}
+      </tr>
+      {data.map((row) =>
+      <tr>
+        {headers.map((key) => 
+        <td>{row[key]}</td>)}
+      </tr>)}
+    </table>
+  )
+}  
+
+const headers = ["marka", "model", "rokProdukcji", "moc"]
+const data = [
+  { marka: "Toyota", model: "Corolla", rokProdukcji: 2020, moc: 120 },
+  { marka: "Ford", model: "Focus", rokProdukcji: 2019, moc: 110 },
+  { marka: "Honda", model: "Civic", rokProdukcji: 2021, moc: 130 },
+  { marka: "Volkswagen", model: "Golf", rokProdukcji: 2018, moc: 100 },
+  { marka: "BMW", model: "3 Series", rokProdukcji: 2022, moc: 150 }
+];
 
 function Root(props) {
   return (
     <div>
       <Menu data={menuData}/>
       <PhotoGallery URLArray={URLArray}/>
+      <DataTable headers={headers} data={data}/>
     </div>
   );
 }
 
-ReactDOM.render(<Root />, document.getElementById('root'));
+ReactDOM.render(<Root/>, document.getElementById('root'));
 
