@@ -31,41 +31,51 @@ export default function Home() {
     );
   };
 
-  const SortableTable = ({headers, data}) => {
-    const [quote, setQuote] = useState(null);
-    const [formattedDate, setFormattedDate] = useState('');
-
+  const SortableTable = ({ headers, data }) => {
+    const [sortedData, setSortedData] = useState(data);
+    const [sortColumn, setSortColumn] = useState(null);
+  
     const handleHeaderClick = (colName) => {
-      data.sort((a, b) => {
-        if (a[colName] > b[colName]) return 1
-        if (a[colName] < b[colName]) return -1
-      })
-    }
-
+      setSortColumn(colName);
+  
+      const sorted = sortedData;
+      sorted.sort((a, b) => {
+        if (a[colName] > b[colName]) return 1;
+        if (a[colName] < b[colName]) return -1;
+        return 0;
+      });
+  
+      setSortedData(sorted);
+    };
+  
+    useEffect(() => {
+    }, [sortColumn, sortedData]);
+  
     return (
       <table>
         <thead>
           <tr>
-            {headers.map((elem) =>
-            <th>
-              <button onClick={() => handleHeaderClick(elem)}>
-              {elem}
-              </button>
-              </th>)}
+            {headers.map((elem) => (
+              <th key={elem}>
+                <button onClick={() => handleHeaderClick(elem)}>
+                  {elem}
+                </button>
+              </th>
+            ))}
           </tr>
         </thead>
         <tbody>
-          {data.map((row, rowIndex) => (
+          {sortedData.map((row, rowIndex) => (
             <tr key={rowIndex}>
               {headers.map((key, colIndex) => (
                 <td key={colIndex}>{row[key]}</td>
-                ))}
+              ))}
             </tr>
           ))}
-        </tbody>    
+        </tbody>
       </table>
-    )
-  }
+    );
+  };
 
   
     const quotes = [
