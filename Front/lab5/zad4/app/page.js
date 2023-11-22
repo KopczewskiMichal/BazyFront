@@ -1,32 +1,47 @@
-import Image from 'next/image';
+'use client';
+import { useEffect, useState } from 'react';
 
 export default function Home() {
-  const QuoteOfTheDay = ({quotes}) => {
-    const quote = quotes[Math.floor(Math.random() * quotes.length - 1)]
-    const date = new Date();
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
+  const QuoteOfTheDay = ({ quotes }) => {
+    const [quote, setQuote] = useState(null);
+    const [formattedDate, setFormattedDate] = useState('');
+  
+    useEffect(() => {
+      const randomQuote = quotes[Math.floor(Math.random() * quotes.length - 1)];
+      setQuote(randomQuote);
+  
+      const date = new Date();
+      const day = date.getDate();
+      const month = date.getMonth() + 1;
+      const year = date.getFullYear();
+      const formattedDate = `${day}-${month}-${year}`;
+      setFormattedDate(formattedDate);
+    }, []); 
+  
     return (
       <div>
-        <p>Autor: {quote.author}</p>
-        <p>Cytat: {quote.quote}</p>
-        <p>Dzisiejsza data: {day}-{month}-{year}</p>
+        {quote && (
+          <>
+            <p>Autor: {quote.author}</p>
+            <p>Cytat: {quote.quote}</p>
+            <p>Dzisiejsza data: {formattedDate}</p>
+          </>
+        )}
       </div>
-    )
-  }
+    );
+  };
 
   const SortableTable = ({headers, data}) => {
+    const [quote, setQuote] = useState(null);
+    const [formattedDate, setFormattedDate] = useState('');
+
     const handleHeaderClick = (colName) => {
       data.sort((a, b) => {
         if (a[colName] > b[colName]) return 1
         if (a[colName] < b[colName]) return -1
-        // if (a[colName] == b[colName]) return 0
       })
-      console.log("posortowano dane po naciśnięciu przycisku")
     }
 
-    
     return (
       <table>
         <thead>
