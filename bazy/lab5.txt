@@ -1,0 +1,15 @@
+Zadanie 1.
+1. 
+create (n:Movie {title:"Forrest Gump"})
+create (n:Movie {title:"Harry Potter"})
+create (n:Movie {title:"Top Gun"})
+create (n:Person {name:"Jacek", surname:"Kowalski"})
+create (n:Person {name:"Stefan", surname:"Nowak"})
+create (n:Person {name:"Mateusz", surname:"Kowal"})
+2.
+MATCH (movie:Movie {title: 'Forrest Gump'})
+RETURN movie
+
+MATCH (movie:Person)
+RETURN movie
+LIMIT 2	
