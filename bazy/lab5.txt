@@ -1,6 +1,7 @@
+Lab 5
 Zadanie 1.
 1. 
-create (n:Movie {title:"Forrest Gump"})
+create (n:Movie {title:"Forest Gump"})
 create (n:Movie {title:"Harry Potter"})
 create (n:Movie {title:"Top Gun"})
 create (n:Person {name:"Jacek", surname:"Kowalski"})
@@ -13,3 +14,38 @@ RETURN movie
 MATCH (movie:Person)
 RETURN movie
 LIMIT 2	
+
+4.
+MATCH (movie:Movie) 
+WHERE movie.released < 2010
+SET movie:OlderMovie
+RETURN movie
+
+5.
+MATCH (movie:OlderMovie:Movie) 
+RETURN movie
+
+6. 
+MATCH (person:Person)
+WHERE (person.name STARTS WITH "Robin")
+SET person:Female
+
+7. 
+MATCH (person:Person:Female)
+RETURN person
+
+8. 
+MATCH (n)
+RETURN n;
+
+9. 
+MATCH (movie:Movie {title: "Forest Gump"})
+SET movie.released = 1994, movie.tagline = "Life is like a box of chocolates", movie.lengthInMinutes = 142
+
+10.
+MATCH (movie:Movie {title: 'Forest Gump'})
+REMOVE movie.lengthInMinutes
+
+11.
+MATCH (movie:Movie {title: "Forest Gump"})
+RETURN movie
