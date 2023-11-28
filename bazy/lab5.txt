@@ -1,7 +1,7 @@
 Lab 5
 Zadanie 1.
 1. 
-create (n:Movie {title:"Forest Gump"})
+create (n:Movie {title:"Forrest Gump"})
 create (n:Movie {title:"Harry Potter"})
 create (n:Movie {title:"Top Gun"})
 create (n:Person {name:"Jacek", surname:"Kowalski"})
@@ -49,3 +49,71 @@ REMOVE movie.lengthInMinutes
 11.
 MATCH (movie:Movie {title: "Forest Gump"})
 RETURN movie
+
+
+
+zad 2.
+1. 
+wget https://stepik.org/media/attachments/lesson/820119/movie.cypher
+docker exec -i neo cypher-shell -u neo4j -p test1234 -f movie.cypher
+
+2. 
+MATCH (a:Person {name:"Robin Wright"}),
+(b:Person {name:"Tom Hanks"}),
+(c:Person {name: "Gary Sinise"}),
+(movie:Movie {title: "Forrest Gump"})
+CREATE (a)-[:ACTED_IN]->(movie),
+(b)-[:ACTED_IN]->(movie),
+(c)-[:ACTED_IN]->(movie)
+RETURN a, b, c, movie
+
+3.
+MATCH (director:Person {name: "Robert Zemeckis"}),
+(movie:Movie {title: "Forrest Gump"})
+CREATE (director)-[:DIRECTED]->(movie)
+RETURN movie, director
+
+4.
+MATCH (a:Person {name: "Tom Hanks"}),
+(b:Person {name: "Gary Sinise"})
+CREATE (b)-[:HELPED]->(a)
+RETURN a, b
+
+5.
+MATCH (a:Person), 
+(b:Movie {title:"Forrest Gump"})
+WHERE (a)-[]->(b)
+RETURN a,b
+
+6.
+MATCH (movie:Movie {title: "Forrest Gump"}),
+(Tom:Person {name:"Tom Hanks"})-[a:ACTED_IN]->(movie),
+(Robin:Person {name:"Robin Wright"})-[b:ACTED_IN]->(movie),
+(Gary:Person {name: "Gary Sinise"})-[c:ACTED_IN]->(movie)
+SET a.role = "Forrest Gump",
+b.role = "Jenny Curran",
+c.role = "Dan Taylor"
+RETURN a,b,c
+
+7.
+MATCH (a:Person {name:"Gary Sinise"})-[rel:HELPED]->(b:Person {name:"Tom Hanks"})
+SET rel.research = "war history"
+RETURN a,b
+
+8.
+MATCH (n)
+UNWIND keys(n) as property
+RETURN DISTINCT property as property_name
+UNION
+MATCH ()-[r]->()
+UNWIND keys(r) as property
+RETURN DISTINCT property as property_name
+
+9.
+MATCH (:Person)-[rel:ACTED_IN]->(:Movie {title: "Forrest Gump"})
+RETURN DISTINCT rel.role
+
+10.
+MATCH (:Person)-[rel:ACTED_IN {role:"Dan Taylor"}]->(:Movie {title:"Forrest Gump"})
+SET rel.role = "Lt. Dan Taylor"
+RETURN rel
