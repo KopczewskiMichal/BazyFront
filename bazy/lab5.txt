@@ -117,3 +117,59 @@ RETURN DISTINCT rel.role
 MATCH (:Person)-[rel:ACTED_IN {role:"Dan Taylor"}]->(:Movie {title:"Forrest Gump"})
 SET rel.role = "Lt. Dan Taylor"
 RETURN rel
+
+KOLEJNE ZADANIA
+3. 
+MATCH  (:Person {name: "Tom Cruise"})-[:ACTED_IN]-> (mov:Movie)
+WHERE mov.released > 1990
+RETURN mov
+
+4.
+MATCH (a:Person {name: "Sam Rockwell"})-[:ACTED_IN]->(mov:Movie),
+(b:Person {name: "Frank Darabont"})-[:DIRECTED]->(mov:Movie)
+RETURN mov, a, b
+
+5.
+MATCH (actor:Person)-[:ACTED_IN]->(:Movie {title: "The Matrix"})
+WHERE actor.born > 1960
+RETURN actor.name AS imie_i_nazwisko, actor.born AS rok_urodzenia
+
+6.
+MATCH (Tom:Person {name: "Tom Hanks"})-[:ACTED_IN]->(movie:Movie)
+RETURN movie.title,
+movie.released,
+2023 - movie.released AS yearsAgoReleased,
+movie.released - Tom.born AS ageOfTom
+
+7.
+MATCH (actor:Person)-[:ACTED_IN]->(mov:Movie)
+WITH actor, collect(mov) AS movies
+WHERE size(movies) > 5
+RETURN actor.name, actor.born
+
+8.
+MATCH (a:Person {name: "Gary Sinise"})-[rel:ACTED_IN {roles: ["Burt Hammersmith"]}]->(b:Movie {title:"The Green Mile"})
+SET rel.roles = ["Bartosz Hammersmit"]
+RETURN rel, a, b
+
+9.
+MATCH (Tom:Person {name: "Tom Hanks"}), (Stefan:Person {name: "Stefan Arndt"})
+CREATE (Tom)-[:HELPED]->(Stefan)
+WITH Tom, Stefan
+MATCH (Tom)-[rel:HELPED]->(Stefan)
+SET rel.research = "war history"
+WITH Tom, Stefan
+MATCH (n)-[r]-(mov:Movie {title: "Cloud Atlas"})
+RETURN n, r, mov
+
+10.
+MATCH (Tom:Person {name: "Tom Hanks"})-[rel]-(mov:Movie)
+RETURN mov.title, type(rel)
+
+11.
+:param rok => 2000;
+<tutaj przemielić poprzednią linijke w zapytaniu a potem wykonać resztę>
+MATCH (r:Person)-[rel:REVIEWED]-(mov:Movie {released:$rok}),
+(actor:Person)-[:ACTED_IN]->(mov)
+WITH r, rel, mov, COLLECT(actor) AS actors
+RETURN r.name, mov.title, rel.rating, actors 
