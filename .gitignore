@@ -2,3 +2,4 @@
 .metals
 .VScode
 neo4j/*
+node_modules*
