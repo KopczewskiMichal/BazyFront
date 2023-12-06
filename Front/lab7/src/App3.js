@@ -1,6 +1,4 @@
 // zadanie 3 lab7
-'use client';
-
 import { useEffect, useState } from 'react';
 
 export default function App() {

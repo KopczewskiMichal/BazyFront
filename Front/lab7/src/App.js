@@ -1,69 +1,91 @@
-// zadanie 3 lab7
-'use client';
-
+// zadanie 4 lab7
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 export default function App() {
-  const Liczniki = () => {
 
-    const generateArray = () => {
-      let res = []
-      for (let i=0; i<=10; i++) {
-        const randomInt = Math.floor(Math.random() * 30)
-        const row = {
-          value: randomInt,
-          type: "decimal"
-        };
-        res.push(row)
-      };
-      return res
-    };
-
-    const handleDeleteNumber = (index) => {
-      let newArray = [...myArray]
-      newArray.splice(index, 1)
-      setMyArray(newArray)
+  const [products, setProducts] = useState([])
+  const DisplayList = () => {
+    function getShoppingList() {
+      axios.get('https://fakestoreapi.com/products')
+      .then((response) => {
+        setProducts(response.data)
+      })
     }
 
-    const handleChangeNumberSystem = (index) => {
-      let newArray = [...myArray]
-      if (myArray[index].type == "decimal") {
-        newArray[index].value = newArray[index].value.toString(2)
-        newArray[index].type = "binary"
-      } else {
-        newArray[index].value = parseInt(newArray[index].value, 2)
-        newArray[index].type = "decimal"
-      }
-      setMyArray(newArray)
-      }
-
-
-
-    const [myArray, setMyArray] = useState([]);
+    
     useEffect(() => {
-      setMyArray(generateArray())
+      getShoppingList()
+    },[products])
 
-
-    }, []);
     return (
       <ul>
-        {myArray.map((number, index) => (
-          <li key={index}>
-            <p>{number.value}</p>
-            <button onClick={() => handleChangeNumberSystem(index)}>
-              {(number.type==="decimal") ? "toBinary": "toDecimal" }
-            </button>
-            <button onClick={() => handleDeleteNumber(index)}>
-              Delete this number
-            </button>
-          </li>
+        {products.map((elem, index) => (
+          <li key={index}>{elem.title} price: {elem.price}</li>
         ))}
       </ul>
-    );
-  };
+    )
+  }
+
+    // app.post("/games/:id", (req, res) => {
+    //   const id = req.params.id;
+    //   const moveData = req.body; // pozycja spacja symbol
+    //   const position = parseInt(moveData[0]);
+    //   const symbol = moveData[2]
+    //   if (games[id][position - 1] === " ") {
+    //     games[id][position - 1] = symbol
+    //     res.send(`${gameToBoardString(games[id])}\n`)
+    //   } else {
+    //     res.send(`Nie możesz w tym miejscu wykonać ruchu, nie jest ono puste\n${gameToBoardString(games[id])}\n`)
+    //   }
+  //   {
+  //     title: 'test product',
+  //     price: 13.5,
+  //     description: 'lorem ipsum set',
+  //     image: 'https://i.pravatar.cc',
+  //     category: 'electronic'
+  // }
+    // })
+
+
+
+  const Form = () => {
+    const formProperties = [
+      {name: "title", type: "text"},
+      {name: "price", type: "number"},
+      {name: "description", type: "text"},
+      {name: "image", type: "text"},
+      {name: "category", type: "text"}
+    ]
+    const [formData, setFormData] = useState("")
+
+
+
+
+    return (
+      <form>
+        {formProperties.map((elem, index) => (
+          <p>
+            <label>{elem.name}</label>
+            <input type={elem.type}
+            id={elem.name}
+            value={formData[index]}
+            ></input>
+          </p>
+        ))}
+
+        
+      </form>
+    )
+  }
+
+
 
 
   return (
-      <Liczniki/>
+  <div>
+      <DisplayList/>
+      <Form/>
+  </div>
    );
 }
