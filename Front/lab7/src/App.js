@@ -23,7 +23,7 @@ export default function App() {
 
   const formProperties = [
     { name: "title", type: "text" },
-    { name: "price", type: "text" },
+    { name: "price", type: "number" },
     { name: "description", type: "text" },
     { name: "image", type: "text" },
     { name: "category", type: "text" },
