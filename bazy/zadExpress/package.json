@@ -1,0 +1,15 @@
+{
+  "name": "zad_express",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongo": "^0.1.0"
+  },
+  "type": "module",
+  "scripts": {
+    "start": "node serverSide/server.js",
+    "ndm": "nodemon serverSide/server.js"
+  }
+}
