@@ -4,3 +4,5 @@ curl 127.0.0.1:8080/products  #Pobranie wszystkich produktów z bazy
 curl -X POST -H "Content-Type: application/json" -d @insertedFile.json http://localhost:8080/products
 
 curl -X DELETE http://localhost:8080/products/657cd15e54a36b3265d1ae35  #działa, ale pamiętajmy o podawaniu prawidłowego id
+
+curl -X PUT -H "content-Type: application/json" -d '{"quantity": 22}' http://localhost:8080/products/657cd15e54a36b3265d1ae36

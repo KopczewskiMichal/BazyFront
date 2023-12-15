@@ -68,4 +68,19 @@ export default class DBActions {
       this.conn && this.conn.close();
     }
   }
+
+  async modify(id, data) {
+    try {
+      this.conn = await this.client.connect();
+      const collection = this.conn.db("magazyn").collection("products");
+      const res = await collection.updateOne({_id: new ObjectId(id)}, {$set: data })
+      console.log(res)
+      return (res["modifiedCount"] != 0) ? "Udało się zmodyfikować produkt" : "Nie udało się zmodyfikować produktu"
+    } catch (error) {
+      console.log("Błąd podczas usówania danych", error)
+      return error
+    } finally {
+      this.conn && this.conn.close();
+    }
+  }
 }

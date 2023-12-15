@@ -1,5 +1,4 @@
 // import { MongoClient } from "mongodb";
-// These lines make "require" available
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 import DBActions from "./DBActions.js";
@@ -62,6 +61,23 @@ app.delete('/products/:id', async (req, res) => {
     console.log("Bład podczas usówania danych")
     res.status(500).send("Wystąpił błąd podczas usówania danychc")
   }
+})
+
+
+app.put('/products/:id', async (req, res)=> {
+  try {
+    const id = req.params.id;
+    const data = req.body;
+    const database = new DBActions();
+    const result = await database.modify(id, data);
+    res.send(result) 
+  } catch (error) {
+    console.log("Wystąpił błąd podczas modyfikacji danych")
+    res.status(500).send("Wystąpił błąd podczas modyfikacji danych")
+  }
+ 
+  
+
 })
 
 
