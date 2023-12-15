@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
 app.get('/products', async (req, res) => {
   try {
     const database = new DBActions();
-    const data = await database.connectAndGetData();
+    const data = await database.getAllData();
     res.send(data);
   } catch (error) {
     console.error("Błąd podczas pobierania danych:", error);
