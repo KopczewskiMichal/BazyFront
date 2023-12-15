@@ -52,8 +52,16 @@ app.post('/products', async (req, res)=> {
 })
 
 
-app.delete('/products', async (req, res) => {
-  
+app.delete('/products/:id', async (req, res) => {
+  try {
+    const productID = req.params.id;
+    const database = new DBActions();
+    const result = await database.deleteById(productID);
+    res.send(result)
+  } catch (error) {
+    console.log("Bład podczas usówania danych")
+    res.status(500).send("Wystąpił błąd podczas usówania danychc")
+  }
 })
 
 

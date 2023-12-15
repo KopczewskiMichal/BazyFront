@@ -1,7 +1,9 @@
-import { MongoClient } from "mongodb"
+import { MongoClient } from "mongodb";
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+const ObjectId = require('mongodb').ObjectId;
 
 export default class DBActions {
-
   constructor() {
     const ipAdress = "127.0.0.1";
     const port = "27017";
@@ -10,12 +12,11 @@ export default class DBActions {
     this.client = new MongoClient(connectionString);
     this.conn = null;
   }
-  
-  
+
   async getAllData() {
     try {
       this.conn = await this.client.connect();
-      const collection = this.conn.db('magazyn').collection("data");
+      const collection = this.conn.db("magazyn").collection("products");
       const queryResult = await collection.find({}).toArray();
       return queryResult;
     } catch (error) {
@@ -25,11 +26,10 @@ export default class DBActions {
     }
   }
 
-
   async insertJSON(data) {
     try {
       this.conn = await this.client.connect();
-      const collection = this.conn.db('magazyn').collection("data");
+      const collection = this.conn.db("magazyn").collection("products");
       await collection.insertOne(data);
     } catch (error) {
       console.error("Błąd podczas insertu danych:", error);
@@ -38,16 +38,15 @@ export default class DBActions {
     }
   }
 
-
-  async checkIfNameInDB (name) {
+  async checkIfNameInDB(name) {
     try {
       this.conn = await this.client.connect();
-      const collection = this.conn.db('magazyn').collection("data");
-      const productInfo = await collection.findOne({name: name});
+      const collection = this.conn.db("magazyn").collection("products");
+      const productInfo = await collection.findOne({ name: name });
       if (productInfo == null) {
-        return false
+        return false;
       } else {
-        return true
+        return true;
       }
     } catch (error) {
       console.error("Błąd podczas sprawdzania obecności nazwy w bazie:", error);
@@ -55,5 +54,18 @@ export default class DBActions {
       this.conn && this.conn.close();
     }
   }
-}
 
+  async deleteById(id) {
+    try {
+      this.conn = await this.client.connect();
+      const collection = this.conn.db("magazyn").collection("products");
+      const res = await collection.deleteOne({_id: new ObjectId(id)})
+      return (res["deletedCount"] == 1) ? "Udało się usunąć produkt" : "Nie udało się usunąć produktu"
+    } catch (error) {
+      console.log("Błąd podczas usówania danych", error)
+      return error
+    } finally {
+      this.conn && this.conn.close();
+    }
+  }
+}
