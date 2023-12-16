@@ -1,7 +1,7 @@
 import { MongoClient } from "mongodb";
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
-const ObjectId = require('mongodb').ObjectId;
+const ObjectId = require("mongodb").ObjectId;
 
 export default class DBActions {
   constructor() {
@@ -59,11 +59,13 @@ export default class DBActions {
     try {
       this.conn = await this.client.connect();
       const collection = this.conn.db("magazyn").collection("products");
-      const res = await collection.deleteOne({_id: new ObjectId(id)})
-      return (res["deletedCount"] == 1) ? "Udało się usunąć produkt" : "Nie udało się usunąć produktu"
+      const res = await collection.deleteOne({ _id: new ObjectId(id) });
+      return res["deletedCount"] == 1
+        ? "Udało się usunąć produkt"
+        : "Nie udało się usunąć produktu";
     } catch (error) {
-      console.log("Błąd podczas usówania danych", error)
-      return error
+      console.log("Błąd podczas usówania danych", error);
+      return error;
     } finally {
       this.conn && this.conn.close();
     }
@@ -73,12 +75,52 @@ export default class DBActions {
     try {
       this.conn = await this.client.connect();
       const collection = this.conn.db("magazyn").collection("products");
-      const res = await collection.updateOne({_id: new ObjectId(id)}, {$set: data })
-      console.log(res)
-      return (res["modifiedCount"] != 0) ? "Udało się zmodyfikować produkt" : "Nie udało się zmodyfikować produktu"
+      const res = await collection.updateOne(
+        { _id: new ObjectId(id) },
+        { $set: data }
+      );
+      return res["modifiedCount"] != 0
+        ? "Udało się zmodyfikować produkt"
+        : "Nie udało się zmodyfikować produktu";
     } catch (error) {
-      console.log("Błąd podczas usówania danych", error)
-      return error
+      console.log("Błąd podczas usówania danych", error);
+      return error;
+    } finally {
+      this.conn && this.conn.close();
+    }
+  }
+
+  async generateReport() {
+    try {
+      this.conn = await this.client.connect();
+      const collection = this.conn.db("magazyn").collection("products");
+      const report = await collection.aggregate([
+        {
+          $addFields: {
+            priceXquantity: { $multiply: ["$price", "$quantity"] },
+          },
+        },
+        {
+          $group: {
+            _id: "$type",
+            totalProducts: { $sum: 1 }, 
+            totalQuantity: { $sum: "$quantity" },
+            totalValue: { $sum: "$priceXquantity" }, 
+          },
+        },
+        {
+          $project: {
+            _id: 0, 
+            totalProducts: 1,
+            totalQuantity: 1,
+            totalValue: 1,
+          },
+        },
+      ]).toArray();
+      return report
+    } catch (error) {
+      console.log("Błąd podczas generowania raportu", error);
+      return error;
     } finally {
       this.conn && this.conn.close();
     }

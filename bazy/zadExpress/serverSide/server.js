@@ -75,11 +75,19 @@ app.put('/products/:id', async (req, res)=> {
     console.log("Wystąpił błąd podczas modyfikacji danych")
     res.status(500).send("Wystąpił błąd podczas modyfikacji danych")
   }
- 
-  
-
 })
 
+
+app.get('/products/report', async (req, res) => {
+  try {
+    const database = new DBActions();
+    const report = await database.generateReport();
+    res.send(report);
+  } catch (error) {
+    console.log("Nie udało się wygenerować raportu")
+    res.status(500).send("Nie udało się wygenerowac raportu")
+  }
+})
 
 
 
