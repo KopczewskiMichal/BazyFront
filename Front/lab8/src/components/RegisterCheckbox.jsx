@@ -1,13 +1,14 @@
 import React from "react";
 import {useRegisterContext}  from './RegisterContext'
 
-export default function RegisterCheckbox({ name, placeholder="", type='text'}) {
+export default function RegisterCheckbox({name, placeholder="", type='text'}) {
     
   const { registerData, updateRegisterData } = useRegisterContext();  // Wyjęcie potrzebnych rzeczy z kontextu
 
   const handleChange = (event) => {
     const value = event.target.value;
     updateRegisterData(name, value);
+    updateRegisterData("changed", true)
   };
 
 

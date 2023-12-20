@@ -2,9 +2,10 @@ import React, { useContext, useEffect } from "react";
 import {useRegisterContext} from "./RegisterContext";
 import RegisterInput from "./RegisterInput";
 import RegisterCheckbox from "./RegisterCheckbox";
+import RegisterSubmit from "./RegisterSubmit";
 
 export default function RegisterForm () {
-  const {registerData} = useRegisterContext()
+  const {registerData, updateRegisterData} = useRegisterContext()
 
   const validateData = () => {
     const emailRegex = new RegExp(/^.+@.+\..+$/)
@@ -22,8 +23,11 @@ export default function RegisterForm () {
 
 
   useEffect(() => {
-    registerData["correctData"] = validateData()
-  })
+    if (registerData["changed"] === true) {
+      updateRegisterData("correctData",  validateData())
+      updateRegisterData("changed", false)
+    }
+  }, [registerData])
   
 
   return (
@@ -36,6 +40,7 @@ export default function RegisterForm () {
         <RegisterInput name= "password"/>
         <RegisterInput name="dateOfBirth" type="date"/>
         <RegisterCheckbox name="accept" type="checkbox" />
+        <RegisterSubmit />
       </form>
     </div>
   )

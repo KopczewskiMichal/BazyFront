@@ -11,7 +11,8 @@ export default function FormProvider  ({ children }) {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    isCorrect: false
+    isCorrect: false,
+    userData: ""
   });
 
   const updateFormData = (name, value) => {

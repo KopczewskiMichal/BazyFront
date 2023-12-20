@@ -14,7 +14,8 @@ export default function RegisterProvider ({ children }) {
     password:"",
     dateOfBirth:"",
     accept: false,
-    correctData: false
+    correctData: false,
+    changed:false
   });
 
   const updateRegisterData = (name, value) => {

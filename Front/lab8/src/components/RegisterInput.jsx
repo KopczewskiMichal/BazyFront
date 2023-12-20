@@ -1,6 +1,5 @@
 import React from "react";
 import {useRegisterContext}  from './RegisterContext'
-import RegisterCheckbox from "./RegisterCheckbox";
 
 export default function RegisterInput({ name, placeholder="", type='text'}) {
     
@@ -9,6 +8,7 @@ export default function RegisterInput({ name, placeholder="", type='text'}) {
   const handleChange = (event) => {
     const value = event.target.value;
     updateRegisterData(name, value);
+    updateRegisterData("changed", true)
   };
 
   return (
