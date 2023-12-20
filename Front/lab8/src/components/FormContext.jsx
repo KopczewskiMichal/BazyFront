@@ -8,7 +8,11 @@ export const useFormContext = () => {
 
 
 export default function FormProvider  ({ children }) {
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    isCorrect: false
+  });
 
   const updateFormData = (name, value) => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
