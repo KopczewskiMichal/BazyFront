@@ -1,23 +1,14 @@
 import React, { useContext, useEffect } from "react";
-import { useFormContext } from "./FormContext";
+// import { useFormContext } from "./FormContext";
 import Input from "./Input";
+import Submit from "./Submit";
 
-export default function Form () {
-
-
+export default function Form() {
   return (
     <form>
-      <p>
-        <Input
-        name="email"
-        placeholder="example@gmail.com"
-        ></Input>
-      </p>
-      <p>
-        <Input
-        name="password"
-        ></Input>
-      </p>
+        <Input name="email" placeholder="example@gmail.com"></Input>
+        <Input name="password"></Input>
+      <Submit />
     </form>
-  ) 
+  );
 }
