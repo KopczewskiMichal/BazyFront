@@ -1,14 +1,13 @@
 import './App.css';
-import PrimaryHeadline from './components/PrimaryHeadline.js'
-import Paragraph from './components/Paragraph.js'
-import SecondaryHeadline from './components/SecondaryHeadline.js'
+import Form from './components/Form.jsx'
+import FormProvider from './components/FormContext.jsx';
 
 function App() {
   return (
     <div className="App">
-      <PrimaryHeadline />
-      <Paragraph />
-      <SecondaryHeadline />
+      <FormProvider>
+        <Form />
+      </FormProvider>
     </div>
   );
 }
